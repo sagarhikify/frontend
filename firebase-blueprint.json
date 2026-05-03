@@ -1,0 +1,84 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "name", "role", "createdAt"]
+    },
+    "Notice": {
+      "title": "Notice",
+      "description": "Simplified government notice",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "originalText": { "type": "string" },
+        "summaryEn": { "type": "string" },
+        "summaryKn": { "type": "string" },
+        "category": { "type": "string" },
+        "urgency": { "type": "string", "enum": ["low", "medium", "high"] },
+        "deadlines": {
+          "type": "array",
+          "items": { "$ref": "Deadline" }
+        },
+        "actions": {
+          "type": "array",
+          "items": { "$ref": "Action" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "originalText", "createdAt"]
+    },
+    "Deadline": {
+      "title": "Deadline",
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "isUrgent": { "type": "boolean" }
+      }
+    },
+    "Action": {
+      "title": "Action",
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "completed": { "type": "boolean" }
+      }
+    },
+    "Notification": {
+      "title": "Notification",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string", "enum": ["info", "success", "warning", "error"] },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Individual user profiles"
+    },
+    "/notices/{noticeId}": {
+      "schema": "Notice",
+      "description": "Processed notices library"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User specific alerts"
+    }
+  }
+}

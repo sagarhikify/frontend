@@ -1,0 +1,13 @@
+{
+  "name": "🏛️ Government Notice Simplifier",
+  "description": "An AI-powered platform to simplify government notices, extract key info, track deadlines, and receive smart alerts.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "AI-powered summarization",
+    "Deadline tracking",
+    "Translation (English to Kannada)",
+    "Admin Dashboard"
+  ]
+}
